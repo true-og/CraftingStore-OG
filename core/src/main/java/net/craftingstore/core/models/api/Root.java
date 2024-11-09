@@ -2,17 +2,15 @@ package net.craftingstore.core.models.api;
 
 public class Root<T> {
 
-    private T result;
-    private boolean success;
-    private int error;
-    private String message;
+	private T result;
+	private boolean success;
 
-    public T getResult() {
-        return result;
-    }
+	public T getResult() {
+		return result;
+	}
 
-    public boolean isSuccess() {
-        return success;
-    }
+	public boolean isSuccess() {
+		return success;
+	}
 
 }

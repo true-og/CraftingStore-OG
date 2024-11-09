@@ -4,12 +4,15 @@ import java.io.IOException;
 
 public class CraftingStoreApiException extends Exception {
 
-    public CraftingStoreApiException(String s, IOException e) {
-        super(s, e);
-    }
+	private static final long serialVersionUID = 1L;
 
-    @Override
-    public void printStackTrace() {
-        super.getCause().printStackTrace();
-    }
+	public CraftingStoreApiException(String s, IOException e) {
+		super(s, e);
+	}
+
+	@Override
+	public void printStackTrace() {
+		super.getCause().printStackTrace();
+	}
+
 }

@@ -38,7 +38,9 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <finalName>CraftingStore-${project.version}</finalName>
+			
+			<outputFile>${project.parent.basedir}/target/CraftingStore-OG-2.10.0.jar</outputFile>
+
                             <relocations>
                                 <relocation>
                                     <pattern>org.apache.http</pattern>
@@ -113,21 +115,6 @@
         <dependency>
             <groupId>net.craftingstore</groupId>
             <artifactId>bukkit</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.craftingstore</groupId>
-            <artifactId>bungee</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.craftingstore</groupId>
-            <artifactId>sponge</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.craftingstore</groupId>
-            <artifactId>velocity</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

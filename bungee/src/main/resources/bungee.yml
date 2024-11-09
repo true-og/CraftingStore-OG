@@ -1,5 +1,0 @@
-name: CraftingStore
-main: net.craftingstore.bungee.CraftingStoreBungee
-version: ${craftingstore-version}
-author: thijs_a
-prefix: CraftingStore

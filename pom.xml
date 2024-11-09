@@ -10,8 +10,7 @@
     <version>${revision}</version>
 
     <properties>
-        <revision>${craftingstore-version}-RELEASE</revision>
-        <craftingstore-version>2.10.0</craftingstore-version>
+	    <revision>CraftingStore-OG-2.10.0</revision>
     </properties>
 
     <build>
@@ -47,9 +46,6 @@
     <modules>
         <module>core</module>
         <module>bukkit</module>
-        <module>bungee</module>
-        <module>sponge</module>
         <module>assembly</module>
-        <module>velocity</module>
     </modules>
 </project>
