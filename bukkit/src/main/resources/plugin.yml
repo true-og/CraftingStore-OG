@@ -1,11 +1,11 @@
 name: CraftingStore-OG
 main: net.craftingstore.bukkit.CraftingStoreBukkit
-version: ${craftingstore-version}
-authors: [Tim_kwakman, thijs_a]
-prefix: CraftingStore
+version: '${version}'
+authors: [Tim_kwakman, thijs_a, NotAlexNoyle]
+prefix: CraftingStore-OG
 softdepend: [PlaceholderAPI, Vault]
 api-version: "1.19"
-folia-supported: true
+folia-supported: false
 commands:
   craftingstore:
     description: CraftingStore command
