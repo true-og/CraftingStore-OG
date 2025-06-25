@@ -14,15 +14,15 @@ public class BackButtonHandler implements InventoryItemHandler<InventoryItemBack
     public BackButtonHandler(InventoryBuilder builder) {
         this.builder = builder;
     }
-    
+
     @Override
     public void handle(Player p, InventoryItemBackButton item, CraftingStoreInventoryHolder holder) {
         if (holder.getParentInventory() != null) {
             CraftingStoreInventoryHolder parentInventory = holder.getParentInventory();
             Inventory inventory = builder.buildInventory(
                     parentInventory.getCsInventory(),
-                    new CraftingStoreInventoryHolder(parentInventory.getCsInventory(), parentInventory.getParentInventory())
-            );
+                    new CraftingStoreInventoryHolder(
+                            parentInventory.getCsInventory(), parentInventory.getParentInventory()));
             p.openInventory(inventory);
         }
     }

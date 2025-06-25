@@ -8,17 +8,10 @@ public class InventoryItemMessage extends InventoryItem {
     private String[] messages;
     private boolean close;
 
-    public InventoryItemMessage() {
-    }
+    public InventoryItemMessage() {}
 
     public InventoryItemMessage(
-            String name,
-            String[] description,
-            InventoryItemIcon icon,
-            int index,
-            String[] messages,
-            boolean close
-    ) {
+            String name, String[] description, InventoryItemIcon icon, int index, String[] messages, boolean close) {
         super(name, description, InventoryItemType.MESSAGE, icon, index);
         this.messages = messages;
         this.close = close;

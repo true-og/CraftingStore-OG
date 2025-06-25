@@ -1,15 +1,14 @@
 package net.craftingstore.bukkit.hooks;
 
+import java.util.concurrent.ExecutionException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import net.craftingstore.core.CraftingStore;
 import net.craftingstore.core.exceptions.CraftingStoreApiException;
 import net.craftingstore.core.models.api.ApiPayment;
 import net.craftingstore.core.models.api.ApiTopDonator;
 import org.bukkit.OfflinePlayer;
-
-import java.util.concurrent.ExecutionException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class PlaceholderAPIHook extends PlaceholderExpansion {
 
@@ -35,14 +34,18 @@ public class PlaceholderAPIHook extends PlaceholderExpansion {
         return null;
     }
 
-    private String handleDonators(OfflinePlayer player, String s) throws CraftingStoreApiException, ExecutionException, InterruptedException {
+    private String handleDonators(OfflinePlayer player, String s)
+            throws CraftingStoreApiException, ExecutionException, InterruptedException {
         ApiTopDonator[] topDonators = instance.getApi().getTopDonators().get();
         if (topDonators == null) {
             return ""; // Donators are not retrieved yet.
         } else if (s.equalsIgnoreCase("donator")) {
             StringBuilder builder = new StringBuilder();
             for (ApiTopDonator donator : topDonators) {
-                builder.append(donator.getUsername()).append(": ").append(donator.getTotal()).append(", ");
+                builder.append(donator.getUsername())
+                        .append(": ")
+                        .append(donator.getTotal())
+                        .append(", ");
             }
             builder.substring(0, builder.length() - 2); // Remove the last ', ' from the string
             return builder.toString();
@@ -61,14 +64,18 @@ public class PlaceholderAPIHook extends PlaceholderExpansion {
         return "";
     }
 
-    private String handlePayments(OfflinePlayer player, String s) throws CraftingStoreApiException, ExecutionException, InterruptedException {
+    private String handlePayments(OfflinePlayer player, String s)
+            throws CraftingStoreApiException, ExecutionException, InterruptedException {
         ApiPayment[] payments = instance.getApi().getPayments().get();
         if (payments == null || payments.length == 0) {
             return ""; // Recent payments are not retrieved yet or there are no payments.
         } else if (s.equalsIgnoreCase("payment")) {
             StringBuilder builder = new StringBuilder();
             for (ApiPayment payment : payments) {
-                builder.append(payment.getUsername()).append(": ").append(payment.getPackageName()).append(", ");
+                builder.append(payment.getUsername())
+                        .append(": ")
+                        .append(payment.getPackageName())
+                        .append(", ");
             }
             builder.substring(0, builder.length() - 2); // Remove the last ', ' from the string
             return builder.toString();

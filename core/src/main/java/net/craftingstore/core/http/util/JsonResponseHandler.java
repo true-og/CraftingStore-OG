@@ -1,6 +1,7 @@
 package net.craftingstore.core.http.util;
 
 import com.google.gson.Gson;
+import java.io.IOException;
 import net.craftingstore.core.models.api.Root;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -9,8 +10,6 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.util.EntityUtils;
-
-import java.io.IOException;
 
 public class JsonResponseHandler<T> implements ResponseHandler<T> {
 

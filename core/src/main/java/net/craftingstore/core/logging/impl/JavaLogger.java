@@ -1,9 +1,8 @@
 package net.craftingstore.core.logging.impl;
 
-import net.craftingstore.core.logging.CraftingStoreLogger;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import net.craftingstore.core.logging.CraftingStoreLogger;
 
 public class JavaLogger extends CraftingStoreLogger {
 

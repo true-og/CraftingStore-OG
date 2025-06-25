@@ -14,7 +14,7 @@ public class GenericOf<X, Y> implements ParameterizedType {
     }
 
     public Type[] getActualTypeArguments() {
-        return new Type[]{wrapped};
+        return new Type[] {wrapped};
     }
 
     public Type getRawType() {

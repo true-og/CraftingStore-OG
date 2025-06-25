@@ -9,7 +9,13 @@ public class Donation {
     private DonationPackage donationPackage;
     private int discount;
 
-    public Donation(int commandId, int paymentId, String command, DonationPlayer player, DonationPackage donationPackage, int discount) {
+    public Donation(
+            int commandId,
+            int paymentId,
+            String command,
+            DonationPlayer player,
+            DonationPackage donationPackage,
+            int discount) {
         this.commandId = commandId;
         this.paymentId = paymentId;
         this.command = command;

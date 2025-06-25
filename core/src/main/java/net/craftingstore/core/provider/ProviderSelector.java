@@ -1,8 +1,5 @@
 package net.craftingstore.core.provider;
 
-import net.craftingstore.core.CraftingStore;
-import net.craftingstore.core.models.api.provider.ProviderInformation;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
@@ -10,6 +7,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import net.craftingstore.core.CraftingStore;
+import net.craftingstore.core.models.api.provider.ProviderInformation;
 
 public class ProviderSelector {
 
@@ -50,11 +49,15 @@ public class ProviderSelector {
             return null;
         }
         ProviderStatus status = availableProviders.get(0);
-        Class<? extends CraftingStoreProvider> implementation = status.getInformation().getType().getImplementation();
+        Class<? extends CraftingStoreProvider> implementation =
+                status.getInformation().getType().getImplementation();
         try {
             Constructor<?> ctor = implementation.getConstructor(CraftingStore.class, ProviderStatus.class);
             return (CraftingStoreProvider) ctor.newInstance(instance, status);
-        } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+        } catch (NoSuchMethodException
+                | IllegalAccessException
+                | InstantiationException
+                | InvocationTargetException e) {
             e.printStackTrace();
         }
         return null;

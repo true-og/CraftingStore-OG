@@ -1,12 +1,11 @@
 package net.craftingstore.bukkit.config;
 
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.plugin.Plugin;
-
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.plugin.Plugin;
 
 public class Config {
 
@@ -30,7 +29,8 @@ public class Config {
         File file = new File(instance.getDataFolder() + File.pathSeparator + filename);
         if (!file.exists()) {
             if (instance.getResource(filename) != null) {
-                Reader defaultConfigFile = new InputStreamReader(instance.getResource(filename), StandardCharsets.UTF_8);
+                Reader defaultConfigFile =
+                        new InputStreamReader(instance.getResource(filename), StandardCharsets.UTF_8);
                 YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defaultConfigFile);
                 config.setDefaults(defConfig);
                 config.options().copyDefaults(true);
@@ -72,7 +72,8 @@ public class Config {
         try {
             getConfig().save(configFile);
         } catch (IOException e) {
-            instance.getLogger().log(Level.SEVERE, "An error occurred while saving the config file " + filename + ".", e);
+            instance.getLogger()
+                    .log(Level.SEVERE, "An error occurred while saving the config file " + filename + ".", e);
         }
     }
 }

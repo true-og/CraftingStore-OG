@@ -7,8 +7,7 @@ public class CraftingStoreInventory {
     private InventoryItem[] content;
     private int size;
 
-    public CraftingStoreInventory() {
-    }
+    public CraftingStoreInventory() {}
 
     public CraftingStoreInventory(String title, InventoryItem[] content, int size) {
         this.title = title;
@@ -29,6 +28,9 @@ public class CraftingStoreInventory {
     }
 
     public InventoryItem getByIndex(int index) {
-        return Arrays.stream(content).filter(i -> i.getIndex() == index).findFirst().orElse(null);
+        return Arrays.stream(content)
+                .filter(i -> i.getIndex() == index)
+                .findFirst()
+                .orElse(null);
     }
 }

@@ -12,7 +12,8 @@ public class DonationPlayer {
         this.username = username;
         this.requiredOnline = requiredOnline;
         if (uuid != null && !uuid.isEmpty()) {
-            uuid = uuid.replaceFirst("([0-9a-fA-F]{8})([0-9a-fA-F]{4})([0-9a-fA-F]{4})([0-9a-fA-F]{4})([0-9a-fA-F]+)", "$1-$2-$3-$4-$5");
+            uuid = uuid.replaceFirst(
+                    "([0-9a-fA-F]{8})([0-9a-fA-F]{4})([0-9a-fA-F]{4})([0-9a-fA-F]{4})([0-9a-fA-F]+)", "$1-$2-$3-$4-$5");
             this.uuid = UUID.fromString(uuid);
         }
     }

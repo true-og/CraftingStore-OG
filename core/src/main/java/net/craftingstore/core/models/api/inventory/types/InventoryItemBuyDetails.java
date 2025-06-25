@@ -8,12 +8,7 @@ public class InventoryItemBuyDetails extends InventoryItem {
 
     public InventoryItemBuyDetails() {}
 
-    public InventoryItemBuyDetails(
-            String name,
-            String[] description,
-            InventoryItemIcon icon,
-            int index
-    ) {
+    public InventoryItemBuyDetails(String name, String[] description, InventoryItemIcon icon, int index) {
         super(name, description, InventoryItemType.BUY_DETAILS, icon, index);
     }
 }

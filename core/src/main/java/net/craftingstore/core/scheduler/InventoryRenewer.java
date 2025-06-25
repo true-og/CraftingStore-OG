@@ -1,10 +1,9 @@
 package net.craftingstore.core.scheduler;
 
-import net.craftingstore.core.CraftingStore;
-import net.craftingstore.core.http.CraftingStoreCachedAPI;
-import net.craftingstore.core.exceptions.CraftingStoreApiException;
-
 import java.util.concurrent.ExecutionException;
+import net.craftingstore.core.CraftingStore;
+import net.craftingstore.core.exceptions.CraftingStoreApiException;
+import net.craftingstore.core.http.CraftingStoreCachedAPI;
 
 public class InventoryRenewer implements Runnable {
 
@@ -30,7 +29,9 @@ public class InventoryRenewer implements Runnable {
             if (instance.getLogger().isDebugging()) {
                 e.printStackTrace();
             } else {
-                instance.getLogger().error("Failed to renew GUI cache. If this issue persists, please contact support at https://craftingstore.net.");
+                instance.getLogger()
+                        .error(
+                                "Failed to renew GUI cache. If this issue persists, please contact support at https://craftingstore.net.");
             }
         }
     }

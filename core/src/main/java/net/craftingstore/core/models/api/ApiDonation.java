@@ -5,10 +5,13 @@ import com.google.gson.annotations.SerializedName;
 public class ApiDonation {
     @SerializedName("id")
     private int commandId;
+
     private int paymentId;
     private String command;
+
     @SerializedName("mcName")
     private String username;
+
     private String uuid;
     private String packageName;
     private boolean requireOnline;

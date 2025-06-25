@@ -18,8 +18,10 @@ public class CategoryItemHandler implements InventoryItemHandler<InventoryItemCa
 
     @Override
     public void handle(Player p, InventoryItemCategory category, CraftingStoreInventoryHolder holder) {
-        CraftingStoreInventory csInventory = new CraftingStoreInventory(category.getTitle(), category.getContent(), category.getSize());
-        Inventory inventory = builder.buildInventory(csInventory, new CraftingStoreInventoryHolder(csInventory, holder));
+        CraftingStoreInventory csInventory =
+                new CraftingStoreInventory(category.getTitle(), category.getContent(), category.getSize());
+        Inventory inventory =
+                builder.buildInventory(csInventory, new CraftingStoreInventoryHolder(csInventory, holder));
         p.openInventory(inventory);
     }
 }

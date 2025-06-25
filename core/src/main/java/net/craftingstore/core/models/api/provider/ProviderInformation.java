@@ -12,5 +12,4 @@ public class ProviderInformation {
     public int getPriority() {
         return priority;
     }
-
 }

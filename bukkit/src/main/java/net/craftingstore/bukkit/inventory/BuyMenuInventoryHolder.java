@@ -10,8 +10,7 @@ public class BuyMenuInventoryHolder extends CraftingStoreInventoryHolder {
     public BuyMenuInventoryHolder(
             CraftingStoreInventory csInventory,
             CraftingStoreInventoryHolder parentInventory,
-            InventoryItemBuyablePackage itemBuyablePackage
-    ) {
+            InventoryItemBuyablePackage itemBuyablePackage) {
         super(csInventory, parentInventory);
         this.itemBuyablePackage = itemBuyablePackage;
     }

@@ -13,7 +13,8 @@ public class VaultHook {
     }
 
     public boolean register() {
-        RegisteredServiceProvider<Economy> rsp = instance.getServer().getServicesManager().getRegistration(Economy.class);
+        RegisteredServiceProvider<Economy> rsp =
+                instance.getServer().getServicesManager().getRegistration(Economy.class);
         if (rsp == null) {
             return false;
         }

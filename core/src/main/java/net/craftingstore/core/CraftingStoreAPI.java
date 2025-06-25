@@ -1,14 +1,13 @@
 package net.craftingstore.core;
 
-import net.craftingstore.core.exceptions.CraftingStoreApiException;
-import net.craftingstore.core.models.api.*;
-import net.craftingstore.core.models.api.misc.CraftingStoreInformation;
-import net.craftingstore.core.models.donation.Donation;
-
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import net.craftingstore.core.exceptions.CraftingStoreApiException;
+import net.craftingstore.core.models.api.*;
+import net.craftingstore.core.models.api.misc.CraftingStoreInformation;
+import net.craftingstore.core.models.donation.Donation;
 
 public abstract class CraftingStoreAPI {
 
@@ -30,17 +29,10 @@ public abstract class CraftingStoreAPI {
     public abstract Future<ApiTopDonator[]> getTopDonators() throws CraftingStoreApiException;
 
     public abstract Future<ApiPackageInformation> getPackageInformation(
-            String inGameName,
-            UUID uuid,
-            String ip,
-            int packageId
-    ) throws CraftingStoreApiException;
+            String inGameName, UUID uuid, String ip, int packageId) throws CraftingStoreApiException;
 
-    public abstract Future<Boolean> createPayment(
-            String inGameName,
-            int price,
-            int[] packages
-    ) throws CraftingStoreApiException;
+    public abstract Future<Boolean> createPayment(String inGameName, int price, int[] packages)
+            throws CraftingStoreApiException;
 
     public String getToken() {
         return this.token;

@@ -14,16 +14,16 @@ tasks.shadowJar {
     archiveFileName.set("${rootProject.version}.jar")
     archiveClassifier.set("")
 
-    relocate("org.apache.http",                "net.craftingstore.libraries.apache.http")
-    relocate("org.apache.commons.lang3",       "net.craftingstore.libraries.apache.commons.lang3")
-    relocate("commons.logging",                "net.craftingstore.libraries.apache.commons.logging")
-    relocate("org.apache.commons.codec",       "net.craftingstore.libraries.apache.commons.codec")
-    relocate("org.apache.commons.text",        "net.craftingstore.libraries.apache.commons.text")
-    relocate("org.json",                       "net.craftingstore.libraries.json")
-    relocate("io.socket",                      "net.craftingstore.libraries.socket")
-    relocate("okhttp3",                        "net.craftingstore.libraries.okhttp3")
-    relocate("okio",                           "net.craftingstore.libraries.okio")
-    relocate("com.cryptomorin.xseries",        "net.craftingstore.libraries.xseries")
+    relocate("org.apache.http", "net.craftingstore.libraries.apache.http")
+    relocate("org.apache.commons.lang3", "net.craftingstore.libraries.apache.commons.lang3")
+    relocate("commons.logging", "net.craftingstore.libraries.apache.commons.logging")
+    relocate("org.apache.commons.codec", "net.craftingstore.libraries.apache.commons.codec")
+    relocate("org.apache.commons.text", "net.craftingstore.libraries.apache.commons.text")
+    relocate("org.json", "net.craftingstore.libraries.json")
+    relocate("io.socket", "net.craftingstore.libraries.socket")
+    relocate("okhttp3", "net.craftingstore.libraries.okhttp3")
+    relocate("okio", "net.craftingstore.libraries.okio")
+    relocate("com.cryptomorin.xseries", "net.craftingstore.libraries.xseries")
 
     exclude("com/cryptomorin/xseries/messages/**")
     exclude("com/cryptomorin/xseries/particles/**")
@@ -38,5 +38,7 @@ tasks.shadowJar {
     minimize()
 }
 
-tasks.build { dependsOn(tasks.shadowJar) }
-
+tasks.build {
+    dependsOn(tasks.spotlessApply)
+    dependsOn(tasks.shadowJar)
+}

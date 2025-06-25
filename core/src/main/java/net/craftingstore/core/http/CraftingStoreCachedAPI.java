@@ -1,14 +1,13 @@
 package net.craftingstore.core.http;
 
+import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import net.craftingstore.core.CraftingStore;
 import net.craftingstore.core.exceptions.CraftingStoreApiException;
 import net.craftingstore.core.models.api.ApiInventory;
 import net.craftingstore.core.models.api.ApiPayment;
 import net.craftingstore.core.models.api.ApiTopDonator;
-
-import java.util.HashMap;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
 public class CraftingStoreCachedAPI extends CraftingStoreAPIImpl {
 

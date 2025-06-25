@@ -1,7 +1,8 @@
 plugins {
-    id("com.gradleup.shadow") version "8.3.6"
-    id("java-library")
-    eclipse
+    id("java") // Tell gradle this is a java project.
+    id("java-library") // Import helper for source-based libraries.
+    id("com.gradleup.shadow") version "8.3.6" // Import shadow API.
+    eclipse // Import eclipse plugin for IDE integration.
 }
 
 dependencies {
@@ -15,3 +16,4 @@ dependencies {
     compileOnly("com.google.code.gson:gson:2.8.9")
 }
 
+tasks.build { dependsOn(tasks.spotlessApply) }

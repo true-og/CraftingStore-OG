@@ -1,104 +1,107 @@
 package net.craftingstore.bukkit.events;
 
 import java.util.UUID;
-
+import net.craftingstore.core.models.donation.Donation;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-import net.craftingstore.core.models.donation.Donation;
-
 public class DonationReceivedEvent extends Event implements Cancellable {
 
-	@Deprecated
-	private String command;
-	@Deprecated
-	private String username;
-	@Deprecated
-	private UUID uuid;
-	@Deprecated
-	private String packageName;
-	@Deprecated
-	private int packagePrice;
-	@Deprecated
-	private int couponDiscount;
+    @Deprecated
+    private String command;
 
-	private Donation donation;
+    @Deprecated
+    private String username;
 
-	private boolean cancelled = false;
+    @Deprecated
+    private UUID uuid;
 
-	@Deprecated
-	public DonationReceivedEvent(String command, String username, UUID uuid, String packageName, int packagePrice, int couponDiscount) {
-		super(true);
-		this.command = command;
-		this.username = username;
-		this.uuid = uuid;
-		this.packageName = packageName;
-		this.packagePrice = packagePrice;
-		this.couponDiscount = couponDiscount;
-	}
+    @Deprecated
+    private String packageName;
 
-	public DonationReceivedEvent(Donation donation) {
-		super(true);
-		this.command = donation.getCommand();
-		this.username = donation.getPlayer().getUsername();
-		this.uuid = donation.getPlayer().getUUID();
-		this.packageName = donation.getPackage().getName();
-		this.packagePrice = donation.getPackage().getPriceInCents() * 100;
-		this.couponDiscount = donation.getDiscount();
-		this.donation = donation;
-	}
+    @Deprecated
+    private int packagePrice;
 
-	public Donation getDonation() {
-		return this.donation;
-	}
+    @Deprecated
+    private int couponDiscount;
 
-	@Deprecated
-	public String getCommand() {
-		return command;
-	}
+    private Donation donation;
 
-	@Deprecated
-	public String getUsername() {
-		return username;
-	}
+    private boolean cancelled = false;
 
-	@Deprecated
-	public UUID getUuid() {
-		return uuid;
-	}
+    @Deprecated
+    public DonationReceivedEvent(
+            String command, String username, UUID uuid, String packageName, int packagePrice, int couponDiscount) {
+        super(true);
+        this.command = command;
+        this.username = username;
+        this.uuid = uuid;
+        this.packageName = packageName;
+        this.packagePrice = packagePrice;
+        this.couponDiscount = couponDiscount;
+    }
 
-	@Deprecated
-	public String getPackageName() {
-		return packageName;
-	}
+    public DonationReceivedEvent(Donation donation) {
+        super(true);
+        this.command = donation.getCommand();
+        this.username = donation.getPlayer().getUsername();
+        this.uuid = donation.getPlayer().getUUID();
+        this.packageName = donation.getPackage().getName();
+        this.packagePrice = donation.getPackage().getPriceInCents() * 100;
+        this.couponDiscount = donation.getDiscount();
+        this.donation = donation;
+    }
 
-	@Deprecated
-	public int getPackagePrice() {
-		return packagePrice;
-	}
+    public Donation getDonation() {
+        return this.donation;
+    }
 
-	@Deprecated
-	public int getCouponDiscount() {
-		return couponDiscount;
-	}
+    @Deprecated
+    public String getCommand() {
+        return command;
+    }
 
-	public boolean isCancelled() {
-		return cancelled;
-	}
+    @Deprecated
+    public String getUsername() {
+        return username;
+    }
 
-	public void setCancelled(boolean cancelled) {
-		this.cancelled = cancelled;
-	}
+    @Deprecated
+    public UUID getUuid() {
+        return uuid;
+    }
 
-	private static final HandlerList handlers = new HandlerList();
+    @Deprecated
+    public String getPackageName() {
+        return packageName;
+    }
 
-	public HandlerList getHandlers() {
-		return handlers;
-	}
+    @Deprecated
+    public int getPackagePrice() {
+        return packagePrice;
+    }
 
-	public static HandlerList getHandlerList() {
-		return handlers;
-	}
+    @Deprecated
+    public int getCouponDiscount() {
+        return couponDiscount;
+    }
 
+    public boolean isCancelled() {
+        return cancelled;
+    }
+
+    public void setCancelled(boolean cancelled) {
+        this.cancelled = cancelled;
+    }
+
+    private static final HandlerList handlers = new HandlerList();
+
+    public HandlerList getHandlers() {
+        return handlers;
+    }
+
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
 }

@@ -2,10 +2,9 @@ package net.craftingstore.core.provider;
 
 import io.socket.client.IO;
 import io.socket.client.Socket;
+import java.net.URISyntaxException;
 import net.craftingstore.core.CraftingStore;
 import net.craftingstore.core.models.api.provider.SocketProviderInformation;
-
-import java.net.URISyntaxException;
 
 public class SocketProvider extends CraftingStoreProvider {
 

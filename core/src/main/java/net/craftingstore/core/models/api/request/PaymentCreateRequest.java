@@ -16,8 +16,7 @@ public class PaymentCreateRequest {
             int inGamePricePaid,
             Integer pricePaid,
             boolean executeCommands,
-            int[] packages
-    ) {
+            int[] packages) {
         this.inGameName = inGameName;
         this.notes = notes;
         this.gateway = gateway;

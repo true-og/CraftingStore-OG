@@ -1,12 +1,11 @@
 package net.craftingstore.bukkit.inventory;
 
 import com.cryptomorin.xseries.XMaterial;
+import java.util.Optional;
 import net.craftingstore.bukkit.CraftingStoreBukkit;
 import net.craftingstore.bukkit.util.VersionUtil;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-
-import java.util.Optional;
 
 public class InventoryItemBuilder {
 

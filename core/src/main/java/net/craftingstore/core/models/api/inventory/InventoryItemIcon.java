@@ -6,10 +6,10 @@ public class InventoryItemIcon {
     private int customModelData;
     private InventoryItemEnhancement[] enhancements;
 
-    public InventoryItemIcon() {
-    }
+    public InventoryItemIcon() {}
 
-    public InventoryItemIcon(String material, Integer amount, int customModelData, InventoryItemEnhancement[] enhancements) {
+    public InventoryItemIcon(
+            String material, Integer amount, int customModelData, InventoryItemEnhancement[] enhancements) {
         this.material = material;
         this.amount = amount;
         this.customModelData = customModelData;

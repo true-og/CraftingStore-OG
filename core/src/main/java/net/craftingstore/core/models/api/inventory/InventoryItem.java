@@ -7,9 +7,7 @@ public class InventoryItem {
     protected InventoryItemIcon icon;
     protected int index;
 
-    public InventoryItem() {
-
-    }
+    public InventoryItem() {}
 
     public InventoryItem(String name, String[] description, InventoryItemType type, InventoryItemIcon icon, int index) {
         this.name = name;

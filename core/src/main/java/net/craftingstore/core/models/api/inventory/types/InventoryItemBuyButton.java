@@ -8,12 +8,7 @@ public class InventoryItemBuyButton extends InventoryItem {
     private final InventoryItemBuyButtonAction action;
 
     public InventoryItemBuyButton(
-            String name,
-            String[] description,
-            InventoryItemIcon icon,
-            int index,
-            InventoryItemBuyButtonAction action
-    ) {
+            String name, String[] description, InventoryItemIcon icon, int index, InventoryItemBuyButtonAction action) {
         super(name, description, InventoryItemType.BUY_BUTTON, icon, index);
         this.action = action;
     }

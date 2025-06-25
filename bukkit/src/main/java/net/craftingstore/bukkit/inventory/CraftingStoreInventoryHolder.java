@@ -9,7 +9,8 @@ public class CraftingStoreInventoryHolder implements InventoryHolder {
     private CraftingStoreInventory csInventory;
     private CraftingStoreInventoryHolder parentInventory;
 
-    public CraftingStoreInventoryHolder(CraftingStoreInventory csInventory, CraftingStoreInventoryHolder parentInventory) {
+    public CraftingStoreInventoryHolder(
+            CraftingStoreInventory csInventory, CraftingStoreInventoryHolder parentInventory) {
         this.csInventory = csInventory;
         this.parentInventory = parentInventory;
     }
