@@ -1,4 +1,4 @@
-rootProject.name = "CraftingStore"
+rootProject.name = "CraftingStore-OG"
 
 ProcessBuilder("sh", "bootstrap.sh").directory(rootDir).inheritIO().start().let {
     if (it.waitFor() != 0) throw GradleException("bootstrap.sh failed")
@@ -6,7 +6,7 @@ ProcessBuilder("sh", "bootstrap.sh").directory(rootDir).inheritIO().start().let 
 
 file("libs")
     .listFiles()
-    ?.filter { it.isDirectory && !it.name.startsWith(".") }
+    ?.filter { it.isDirectory && !it.name.startsWith(".") && it.name != "build" }
     ?.forEach { dir ->
         include(":libs:${dir.name}")
         project(":libs:${dir.name}").projectDir = dir

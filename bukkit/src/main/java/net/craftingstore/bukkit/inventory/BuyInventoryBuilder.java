@@ -11,7 +11,6 @@ import net.craftingstore.core.models.api.inventory.InventoryItemIcon;
 import net.craftingstore.core.models.api.inventory.InventoryItemType;
 import net.craftingstore.core.models.api.inventory.types.InventoryItemBuyablePackage;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +26,7 @@ public class BuyInventoryBuilder {
         this.inventoryBuilder = inventoryBuilder;
     }
 
-    public Inventory build(Player p, InventoryItemBuyablePackage item, CraftingStoreInventoryHolder holder) throws CraftingStoreApiException, ExecutionException, InterruptedException {
+    public CraftingStoreGUI build(Player p, InventoryItemBuyablePackage item, CraftingStoreGUI inventory) throws CraftingStoreApiException, ExecutionException, InterruptedException {
         ApiInventory buyMenu = this.instance.getCraftingStore().getApi().getGUI().get().getBuyMenu();
         CraftingStoreInventory craftingStoreInventory = new CraftingStoreInventory(buyMenu.getTitle(), buyMenu.getContent(), buyMenu.getSize());
 
@@ -49,17 +48,19 @@ public class BuyInventoryBuilder {
             return null;
         }
 
-        Map placeholders = new HashMap<>();
+        Map<String, Object> placeholders = new HashMap<>();
         placeholders.put("package_name", item.getName());
         placeholders.put("package_price_ingame", packageInformation.getPrice());
-        return this.inventoryBuilder.buildInventory(
+        return this.inventoryBuilder.buildBuyMenu(
+                p,
                 craftingStoreInventory,
-                new BuyMenuInventoryHolder(craftingStoreInventory, holder, item),
+                inventory,
+                item,
                 placeholders
         );
     }
 
-    public Inventory buildLoadInventory() {
+    public CraftingStoreGUI buildLoadInventory(Player player) {
         InventoryItemIcon icon = new InventoryItemIcon("LIGHT_BLUE_STAINED_GLASS_PANE", 1, 0, null);
         InventoryItem[] content = new InventoryItem[9];
         for (int i = 0; i < 9; i++) {
@@ -71,10 +72,7 @@ public class BuyInventoryBuilder {
                 content,
                 9
         );
-        return this.inventoryBuilder.buildInventory(
-                craftingStoreInventory,
-                new CraftingStoreInventoryHolder(craftingStoreInventory, null)
-        );
+        return this.inventoryBuilder.build(player, craftingStoreInventory);
     }
 
     private void closeInventory(Player p) {

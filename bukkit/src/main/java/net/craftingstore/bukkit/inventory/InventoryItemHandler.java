@@ -4,5 +4,5 @@ import net.craftingstore.core.models.api.inventory.InventoryItem;
 import org.bukkit.entity.Player;
 
 public interface InventoryItemHandler<T extends InventoryItem> {
-    void handle(Player p, T item, CraftingStoreInventoryHolder holder);
+    void handle(Player p, T item, CraftingStoreGUI inventory);
 }

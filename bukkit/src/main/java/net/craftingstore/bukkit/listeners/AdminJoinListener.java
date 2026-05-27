@@ -35,9 +35,9 @@ public class AdminJoinListener implements Listener {
 
         if (!instance.getCraftingStore().isEnabled()) {
             if (update != null && update.shouldDisable()) {
-                p.sendMessage(instance.getPrefix() + "The CraftingStore plugin has been disabled because this is an outdated version. Please update the plugin.");
+                p.sendMessage(instance.getPrefix() + "The CraftingStore-OG plugin has been disabled because this is an outdated version. Please update the plugin.");
             } else {
-                p.sendMessage(instance.getPrefix() + "The CraftingStore plugin has not been set-up correctly. Please set your API key using /craftingstore key <your key>.");
+                p.sendMessage(instance.getPrefix() + "The CraftingStore-OG plugin has not been set-up correctly. Please set your API key using /craftingstore key <your key>.");
             }
         }
     }

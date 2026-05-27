@@ -4,8 +4,8 @@ import org.gradle.kotlin.dsl.provideDelegate
 plugins {
     id("java") // Import Java plugin.
     id("java-library") // Import Java Library plugin.
-    id("com.diffplug.spotless") version "7.0.4" // Import Spotless plugin.
-    id("com.gradleup.shadow") version "8.3.6" // Import Shadow plugin.
+    id("com.diffplug.spotless") version "8.1.0" // Import Spotless plugin.
+    id("com.gradleup.shadow") version "8.3.9" // Import Shadow plugin.
     id("checkstyle") // Import Checkstyle plugin.
     eclipse // Import Eclipse plugin.
     kotlin("jvm") version "2.1.21" // Import Kotlin JVM plugin.
@@ -95,7 +95,7 @@ tasks.jar { archiveClassifier.set("part") } // Applies to root jarfile only.
 val copyServerJarToRootBuildLibs by
     tasks.registering(Copy::class) {
         dependsOn(":assembly:shadowJar")
-        from(project(":assembly").layout.buildDirectory.file("libs/CraftingStore-${rootProject.version}.jar"))
+        from(project(":assembly").layout.buildDirectory.file("libs/CraftingStore-OG-${rootProject.version}.jar"))
         into(layout.buildDirectory.dir("libs"))
     }
 
@@ -167,7 +167,10 @@ project(":bukkit") {
         compileOnly("net.md-5:bungeecord-chat:1.20-R0.2")
         compileOnly("me.clip:placeholderapi:2.11.6")
         implementation("com.github.cryptomorin:XSeries:9.4.0")
-        compileOnly("com.github.MilkBowl:VaultAPI:1.7")
+        compileOnlyApi(project(":libs:DiamondBank-OG")) {
+            attributes { attribute(kotlinAttribute, true) }
+        } // Import TrueOG network DiamondBank-OG Kotlin API (from source).
+        implementation(project(":libs:GxUI-OG")) // Import and package TrueOG Network GxUI-OG Java API (from source).
         implementation("org.apache.commons:commons-text:1.10.0")
     }
     tasks.named<ProcessResources>("processResources") {
@@ -221,7 +224,7 @@ project(":assembly") {
         implementation(project(":velocity"))
     }
     tasks.named<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJar") {
-        archiveFileName.set("CraftingStore-${rootProject.version}.jar")
+        archiveFileName.set("CraftingStore-OG-${rootProject.version}.jar")
         relocate("org.apache.http", "net.craftingstore.libraries.apache.http")
         relocate("org.apache.commons.lang", "me.dadus33.libs.commonslang2")
         relocate("org.apache.commons.lang3", "net.craftingstore.libraries.apache.commons.lang3")

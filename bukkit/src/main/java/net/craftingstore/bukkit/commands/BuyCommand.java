@@ -1,6 +1,7 @@
 package net.craftingstore.bukkit.commands;
 
 import net.craftingstore.bukkit.CraftingStoreBukkit;
+import net.craftingstore.bukkit.inventory.CraftingStoreGUI;
 import net.craftingstore.bukkit.inventory.InventoryBuilder;
 import net.craftingstore.core.exceptions.CraftingStoreApiException;
 import net.craftingstore.core.models.api.ApiInventory;
@@ -9,7 +10,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 
 import java.util.concurrent.ExecutionException;
 
@@ -35,12 +35,13 @@ public class BuyCommand implements CommandExecutor {
             try {
                 InventoryBuilder builder = new InventoryBuilder(this.instance);
                 ApiInventory gui = instance.getCraftingStore().getApi().getGUI().get();
-                Inventory inventory = builder.buildInventory(
+                CraftingStoreGUI inventory = builder.build(
+                        p,
                         new CraftingStoreInventory(gui.getTitle(), gui.getContent(), gui.getSize())
                 );
                 this.instance.runSyncTask(() -> {
                     if (p.isOnline()) {
-                        p.openInventory(inventory);
+                        inventory.open(false);
                     }
                 });
             } catch (CraftingStoreApiException | InterruptedException | ExecutionException e) {

@@ -36,7 +36,7 @@ public class InventoryBuilder {
     public Inventory buildInventory(CraftingStoreInventory csInventory, InventoryAttachment parent) {
         String title = csInventory.getTitle();
         if (title == null || title.isEmpty()) {
-            title = "CraftingStore";
+            title = "CraftingStore-OG";
         }
         Text formattedTitle = TextSerializers.FORMATTING_CODE.deserialize(title).toText();
 

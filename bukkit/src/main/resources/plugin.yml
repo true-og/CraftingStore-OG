@@ -1,15 +1,14 @@
-name: CraftingStore
+name: CraftingStore-OG
 main: net.craftingstore.bukkit.CraftingStoreBukkit
 version: ${version}
 authors: [Tim_kwakman, thijs_a]
-prefix: CraftingStore
-softdepend: [PlaceholderAPI, Vault]
+prefix: CraftingStore-OG
+softdepend: [PlaceholderAPI, DiamondBank-OG]
 api-version: '${apiVersion}'
 folia-supported: true
 commands:
   craftingstore:
-    description: CraftingStore command
+    description: CraftingStore-OG command
     aliases: [cs]
   csbuy:
     description: Buy command
-    aliases: [buy]

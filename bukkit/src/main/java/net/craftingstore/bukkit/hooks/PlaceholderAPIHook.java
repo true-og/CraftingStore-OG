@@ -94,7 +94,7 @@ public class PlaceholderAPIHook extends PlaceholderExpansion {
 
     @Override
     public String getAuthor() {
-        return "CraftingStore";
+        return "CraftingStore-OG";
     }
 
     @Override

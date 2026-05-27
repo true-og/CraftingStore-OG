@@ -3,9 +3,8 @@ package net.craftingstore.bukkit;
 import net.craftingstore.bukkit.commands.BuyCommand;
 import net.craftingstore.bukkit.commands.CraftingStoreCommand;
 import net.craftingstore.bukkit.config.Config;
+import net.craftingstore.bukkit.hooks.DiamondBankHook;
 import net.craftingstore.bukkit.hooks.PlaceholderAPIHook;
-import net.craftingstore.bukkit.hooks.VaultHook;
-import net.craftingstore.bukkit.listeners.InventoryListener;
 import net.craftingstore.bukkit.listeners.AdminJoinListener;
 import net.craftingstore.bukkit.listeners.PendingDonationJoinListener;
 import net.craftingstore.bukkit.util.VersionUtil;
@@ -19,8 +18,8 @@ public class CraftingStoreBukkit extends JavaPlugin {
 
     private CraftingStore craftingStore;
     private Config config;
-    private String prefix = ChatColor.GRAY + "[" + ChatColor.RED + "CraftingStore" + ChatColor.GRAY + "] " + ChatColor.WHITE;
-    private VaultHook vaultHook;
+    private String prefix = ChatColor.GRAY + "[" + ChatColor.RED + "CraftingStore-OG" + ChatColor.GRAY + "] " + ChatColor.WHITE;
+    private DiamondBankHook diamondBankHook;
 
     @Override
     public void onEnable() {
@@ -32,7 +31,6 @@ public class CraftingStoreBukkit extends JavaPlugin {
             this.getCommand("csbuy").setExecutor(new BuyCommand(this));
         }
 
-        this.getServer().getPluginManager().registerEvents(new InventoryListener(this), this);
         this.getServer().getPluginManager().registerEvents(new AdminJoinListener(this), this);
         this.getServer().getPluginManager().registerEvents(new PendingDonationJoinListener(this), this);
 
@@ -41,14 +39,14 @@ public class CraftingStoreBukkit extends JavaPlugin {
             new PlaceholderAPIHook(craftingStore);
             craftingStore.getLogger().info("Hooked with PlaceholderAPI");
         }
-        // Vault hook
-        if (Bukkit.getPluginManager().isPluginEnabled("Vault")) {
-            this.vaultHook = new VaultHook(this);
-            if (this.vaultHook.register()) {
-                craftingStore.getLogger().info("Hooked with Vault");
+        // DiamondBank-OG hook
+        if (Bukkit.getPluginManager().isPluginEnabled("DiamondBank-OG")) {
+            this.diamondBankHook = new DiamondBankHook(this);
+            if (this.diamondBankHook.register()) {
+                craftingStore.getLogger().info("Hooked with DiamondBank-OG");
             } else {
-                craftingStore.getLogger().info("There was a problem hooking with Vault");
-                this.vaultHook = null;
+                craftingStore.getLogger().info("There was a problem hooking with DiamondBank-OG");
+                this.diamondBankHook = null;
             }
         }
     }
@@ -76,12 +74,12 @@ public class CraftingStoreBukkit extends JavaPlugin {
         return prefix;
     }
 
-    public VaultHook getVaultHook() {
-        return vaultHook;
+    public DiamondBankHook getDiamondBankHook() {
+        return diamondBankHook;
     }
 
-    public boolean isHookedWithVault() {
-        return vaultHook != null;
+    public boolean isHookedWithDiamondBank() {
+        return diamondBankHook != null;
     }
 
     public void runSyncTask(Runnable runnable) {

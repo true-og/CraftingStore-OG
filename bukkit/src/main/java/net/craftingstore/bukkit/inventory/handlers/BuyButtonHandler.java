@@ -1,17 +1,19 @@
 package net.craftingstore.bukkit.inventory.handlers;
 
+import java.util.UUID;
+
+import org.bukkit.entity.Player;
+
 import net.craftingstore.bukkit.CraftingStoreBukkit;
 import net.craftingstore.bukkit.inventory.BuyInventoryBuilder;
-import net.craftingstore.bukkit.inventory.BuyMenuInventoryHolder;
-import net.craftingstore.bukkit.inventory.CraftingStoreInventoryHolder;
+import net.craftingstore.bukkit.inventory.CraftingStoreGUI;
 import net.craftingstore.bukkit.inventory.InventoryItemHandler;
 import net.craftingstore.bukkit.util.ChatColorUtil;
 import net.craftingstore.core.models.api.ApiPackageInformation;
 import net.craftingstore.core.models.api.inventory.types.InventoryItemBuyButton;
 import net.craftingstore.core.models.api.inventory.types.InventoryItemBuyablePackage;
-import net.milkbowl.vault.economy.EconomyResponse;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
+import net.trueog.diamondbankog.DiamondBankException;
+import net.trueog.diamondbankog.DiamondBankException.InsufficientFundsException;
 
 public class BuyButtonHandler implements InventoryItemHandler<InventoryItemBuyButton> {
 
@@ -24,11 +26,11 @@ public class BuyButtonHandler implements InventoryItemHandler<InventoryItemBuyBu
     }
 
     @Override
-    public void handle(Player p, InventoryItemBuyButton item, CraftingStoreInventoryHolder holder) {
-        if (!(holder instanceof BuyMenuInventoryHolder)) {
+    public void handle(Player p, InventoryItemBuyButton item, CraftingStoreGUI inventory) {
+        if (inventory.getItemBuyablePackage() == null) {
             throw new RuntimeException("BuyButtonHandler only works in a buy menu");
         }
-        InventoryItemBuyablePackage itemBuyablePackage = ((BuyMenuInventoryHolder) holder).getItemBuyablePackage();
+        InventoryItemBuyablePackage itemBuyablePackage = inventory.getItemBuyablePackage();
 
         InventoryItemBuyButton.InventoryItemBuyButtonAction action = item.getAction();
         if (action.equals(InventoryItemBuyButton.InventoryItemBuyButtonAction.ONLINE)) {
@@ -40,14 +42,22 @@ public class BuyButtonHandler implements InventoryItemHandler<InventoryItemBuyBu
         }
 
         if (action.equals(InventoryItemBuyButton.InventoryItemBuyButtonAction.IN_GAME)) {
-            Inventory loading = this.buyInventoryBuilder.buildLoadInventory();
-            p.openInventory(loading);
+            if (!this.instance.isHookedWithDiamondBank()) {
+                p.sendMessage(instance.getPrefix() + "CraftingStore-OG is not hooked with DiamondBank-OG!");
+                p.closeInventory();
+                return;
+            }
+
+            UUID playerId = p.getUniqueId();
+            String playerName = p.getName();
+            String ip = p.getAddress().getAddress().getHostAddress();
+            CraftingStoreGUI loading = this.buyInventoryBuilder.buildLoadInventory(p);
+            loading.open(false);
             this.instance.getCraftingStore().getImplementation().runAsyncTask(() -> {
                 try {
-                    String ip = p.getAddress().getAddress().getHostAddress();
                     ApiPackageInformation packageInformation = this.instance.getCraftingStore().getApi().getPackageInformation(
-                            p.getName(),
-                            p.getUniqueId(),
+                            playerName,
+                            playerId,
                             ip,
                             itemBuyablePackage.getPackageId()
                     ).get();
@@ -64,18 +74,28 @@ public class BuyButtonHandler implements InventoryItemHandler<InventoryItemBuyBu
                         closeInventory(p);
                         return;
                     }
-                    if (!this.instance.getVaultHook().getEconomy().has(p, packageInformation.getPrice())) {
+                    if (!this.instance.getDiamondBankHook().hasFunds(playerId, packageInformation.getPrice())) {
                         p.sendMessage(ChatColorUtil.translate(
                                 this.instance.getCraftingStore().getImplementation().getConfiguration().getNotEnoughBalanceMessage()
                         ));
                         closeInventory(p);
                         return;
                     }
-                    EconomyResponse response = this.instance.getVaultHook().getEconomy().withdrawPlayer(
-                            p,
-                            packageInformation.getPrice()
-                    );
-                    if (!response.transactionSuccess()) {
+
+                    try {
+                        this.instance.getDiamondBankHook().charge(
+                                playerId,
+                                packageInformation.getPrice(),
+                                itemBuyablePackage.getPackageId()
+                        );
+                    } catch (InsufficientFundsException exception) {
+                        p.sendMessage(ChatColorUtil.translate(
+                                this.instance.getCraftingStore().getImplementation().getConfiguration().getNotEnoughBalanceMessage()
+                        ));
+                        closeInventory(p);
+                        return;
+                    } catch (DiamondBankException exception) {
+                        exception.printStackTrace();
                         p.sendMessage(this.instance.getPrefix() + "There was a problem with the transaction. Please try again later");
                         closeInventory(p);
                         return;
@@ -83,7 +103,7 @@ public class BuyButtonHandler implements InventoryItemHandler<InventoryItemBuyBu
 
                     try {
                         boolean success = this.instance.getCraftingStore().getApi().createPayment(
-                                p.getName(),
+                                playerName,
                                 packageInformation.getPrice(),
                                 new int[]{itemBuyablePackage.getPackageId()}
                         ).get();
@@ -97,19 +117,22 @@ public class BuyButtonHandler implements InventoryItemHandler<InventoryItemBuyBu
                         exception.printStackTrace();
                         this.instance.getCraftingStore().getLogger().error(String.format(
                                 "Unable to create a transaction for player %s with package %s and cost %s. Giving the player's money back...",
-                                p.getName(),
+                                playerName,
                                 itemBuyablePackage.getPackageId(),
                                 packageInformation.getPrice()
                         ));
-                        EconomyResponse rollbackResponse = this.instance.getVaultHook().getEconomy().depositPlayer(
-                                p,
-                                packageInformation.getPrice()
-                        );
-                        if (!rollbackResponse.transactionSuccess()) {
+                        try {
+                            this.instance.getDiamondBankHook().refund(
+                                    playerId,
+                                    packageInformation.getPrice(),
+                                    itemBuyablePackage.getPackageId()
+                            );
+                        } catch (DiamondBankException rollbackException) {
+                            rollbackException.printStackTrace();
                             p.sendMessage(this.instance.getPrefix() + "There was a problem with the transaction, and we were unable to give you back your money. Please contact an administrator");
                             this.instance.getCraftingStore().getLogger().error(String.format(
                                     "Unable to give the player's money back. Player: %s, cost: %s.",
-                                    p.getName(),
+                                    playerName,
                                     packageInformation.getPrice()
                             ));
                             closeInventory(p);
@@ -119,6 +142,11 @@ public class BuyButtonHandler implements InventoryItemHandler<InventoryItemBuyBu
                         p.sendMessage(this.instance.getPrefix() + "A problem occurred while creating your payment. Your money has been given back. Please try again later");
                         closeInventory(p);
                     }
+                } catch (DiamondBankException exception) {
+                    exception.printStackTrace();
+                    closeInventory(p);
+                    p.sendMessage(this.instance.getPrefix()
+                            + "There was a problem accessing DiamondBank-OG. Please try again later.");
                 } catch (Exception exception) {
                     exception.printStackTrace();
                     closeInventory(p);

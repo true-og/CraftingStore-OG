@@ -24,7 +24,7 @@ import org.spongepowered.api.text.format.TextColors;
 
 import java.nio.file.Path;
 
-@Plugin(id = "craftingstore", name = "CraftingStore")
+@Plugin(id = "craftingstore", name = "CraftingStore-OG")
 public class CraftingStoreSponge {
     private CraftingStore craftingStore;
 
@@ -41,7 +41,7 @@ public class CraftingStoreSponge {
     private Config config;
 
     private LiteralText prefix = Text.builder("[").color(TextColors.GRAY)
-            .append(Text.builder("CraftingStore").color(TextColors.RED).build())
+            .append(Text.builder("CraftingStore-OG").color(TextColors.RED).build())
             .append(Text.builder("] ").color(TextColors.WHITE).build()).build();
 
     @Listener
@@ -53,7 +53,7 @@ public class CraftingStoreSponge {
         injector = injector.createChildInjector(new CraftingStoreModule(craftingStore));
 
         CommandSpec craftingStoreCommand = CommandSpec.builder()
-                .description(Text.of("CraftingStore main command"))
+                .description(Text.of("CraftingStore-OG main command"))
                 .permission(craftingStore.ADMIN_PERMISSION)
                 .arguments(
                         GenericArguments.optional(GenericArguments.string(Text.of("action"))),
@@ -63,7 +63,7 @@ public class CraftingStoreSponge {
                 .build();
 
         CommandSpec buyCommand = CommandSpec.builder()
-                .description(Text.of("CraftingStore buy command"))
+                .description(Text.of("CraftingStore-OG buy command"))
                 .executor(injector.getInstance(BuyCommand.class))
                 .build();
         game.getCommandManager().register(this, craftingStoreCommand, "craftingstore", "cs");

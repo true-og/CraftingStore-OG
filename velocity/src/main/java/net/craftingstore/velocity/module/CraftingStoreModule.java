@@ -12,7 +12,7 @@ public class CraftingStoreModule extends AbstractModule {
     private CraftingStore craftingStore;
     private TextComponent prefix = Component.text()
             .append(Component.text("[", NamedTextColor.GRAY))
-            .append(Component.text("CraftingStore", NamedTextColor.RED))
+            .append(Component.text("CraftingStore-OG", NamedTextColor.RED))
             .append(Component.text("] ", NamedTextColor.GRAY))
             .append(Component.text("", NamedTextColor.WHITE))
             .build();
