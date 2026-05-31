@@ -29,7 +29,7 @@ kotlin { jvmToolchain(17) }
 /* ----------------------------- Metadata ------------------------------ */
 group = "net.craftingstore" // Declare bundle identifier.
 
-version = "2.10.0-RELEASE" // Declare plugin version (will be in .jar).
+version = "2.10.1" // Declare plugin version (will be in .jar).
 
 val apiVersion = "1.19" // Declare minecraft server target version.
 
